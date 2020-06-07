@@ -8,7 +8,8 @@
 # (C)2011
 ###############################################
 
-import pika, sys
+import pika
+import sys
 
 credentials = pika.PlainCredentials("guest", "guest")
 conn_params = pika.ConnectionParameters("localhost",

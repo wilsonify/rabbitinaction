@@ -9,7 +9,8 @@
 # (C)2011
 ###############################################
 
-import pika, sys
+import pika
+import sys
 from pika import spec
 
 credentials = pika.PlainCredentials("guest", "guest")
@@ -21,13 +22,13 @@ channel = conn_broker.channel()
 
 def confirm_handler(frame): #/(hwppc.1) Publisher confirm handler
     if type(frame.method) == spec.Confirm.SelectOk:
-        print "Channel in 'confirm' mode."
+        print("Channel in 'confirm' mode.")
     elif type(frame.method) == spec.Basic.Nack:
         if frame.method.delivery_tag in msg_ids:
-            print "Message lost!"
+            print("Message lost!")
     elif type(frame.method) == spec.Basic.Ack:
         if frame.method.delivery_tag in msg_ids:
-            print "Confirm received!"
+            print("Confirm received!")
             msg_ids.remove(frame.method.delivery_tag)
 
 #/(hwppc.2) Put channel in "confirm" mode

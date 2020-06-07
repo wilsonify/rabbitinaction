@@ -8,7 +8,11 @@
 # (C)2011
 ###############################################
 
-import sys, json, httplib, urllib, base64, socket
+import base64
+import http.client as httplib
+import socket
+import sys
+import urllib
 
 #(apic.0) Nagios status codes
 EXIT_OK = 0
@@ -39,16 +43,16 @@ try:
 
 #/(apic.5) Could not connect to API server, return critical status
 except socket.error:
-    print "CRITICAL: Could not connect to %s:%s" % (server, port)
+    print( "CRITICAL: Could not connect to %s:%s" % (server, port))
     exit(EXIT_CRITICAL)
 
 response = conn.getresponse()
 
 #/(apic.6) RabbitMQ not responding/alive, return critical status
 if response.status > 299:
-    print "CRITICAL: Broker not alive: %s" % response.read()
+    print( "CRITICAL: Broker not alive: %s" % response.read())
     exit(EXIT_CRITICAL)
 
 #/(apic.7) RabbitMQ alive, return OK status
-print "OK: Broker alive: %s" % response.read()
+print( "OK: Broker alive: %s" % response.read())
 exit(EXIT_OK)

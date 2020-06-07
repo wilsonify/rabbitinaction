@@ -8,7 +8,8 @@
 # (C)2011
 ###############################################
 
-import pika, json
+import json
+import pika
 
 #/(apiserver.0) Establish connection to broker
 creds_broker = pika.PlainCredentials("rpc_user", "rpcme")
@@ -32,7 +33,7 @@ def api_ping(channel, method, header, body):
     """'ping' API call."""
     channel.basic_ack(delivery_tag=method.delivery_tag)
     msg_dict = json.loads(body)
-    print "Received API call...replying..."
+    print("Received API call...replying...")
     channel.basic_publish(body="Pong!" + str(msg_dict["time"]),
                           exchange="",
                           routing_key=header.reply_to)
@@ -41,5 +42,5 @@ channel.basic_consume(api_ping,
                       queue="ping",
                       consumer_tag="ping")
 
-print "Waiting for RPC calls..."
+print("Waiting for RPC calls...")
 channel.start_consuming()

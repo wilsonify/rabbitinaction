@@ -7,7 +7,9 @@
 # Author: Jason J. W. Williams
 # (C)2011
 ###############################################
-import time, json, pika
+import json
+import pika
+import time
 
 #/(rpcc.0) Establish connection to broker
 creds_broker = pika.PlainCredentials("rpc_user", "rpcme")
@@ -30,11 +32,11 @@ channel.basic_publish(body=msg,
                       properties=msg_props,
                       routing_key="ping")
 
-print "Sent 'ping' RPC call. Waiting for reply..."
-
+print("Sent 'ping' RPC call. Waiting for reply..."
+)
 def reply_callback(channel, method, header, body):
     """Receives RPC server replies."""
-    print "RPC Reply --- " + body
+    print("RPC Reply --- " + body)
     channel.stop_consuming()
 
 

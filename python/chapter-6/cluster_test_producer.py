@@ -7,7 +7,10 @@
 # Author: Jason J. W. Williams
 # (C)2011
 ###############################################
-import sys, time, json, pika
+import json
+import pika
+import sys
+import time
 
 AMQP_HOST = sys.argv[1]
 AMQP_PORT = int(sys.argv[2])
@@ -34,5 +37,5 @@ channel.basic_publish(body=msg, mandatory=True,
                       properties=msg_props,
                       routing_key="cluster_test")
 
-print "Sent cluster test message."
+print( "Sent cluster test message.")
 

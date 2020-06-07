@@ -7,7 +7,10 @@
 # Author: Jason J. W. Williams
 # (C)2011
 ###############################################
-import sys, json, pika, random
+import json
+import pika
+import random
+import sys
 
 AMQP_HOST = sys.argv[1]
 AMQP_PORT = int(sys.argv[2])
@@ -35,5 +38,5 @@ channel.basic_publish(body=msg, mandatory=True,
                       properties=msg_props,
                       routing_key="warehouse")
 
-print "Sent avocado order message."
+print( "Sent avocado order message.")
 

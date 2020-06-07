@@ -7,14 +7,17 @@
 # Author: Jason J. W. Williams
 # (C)2011
 ###############################################
-import sys, json, pika, time, traceback
+import json
+import sys
+
+import pika
 
 
 def msg_rcvd(channel, method, header, body):
     message = json.loads(body)
     
     #/(ctc.1) Print & acknowledge our order
-    print "Received order %(ordernum)d for %(type)s." % message
+    print("Received order %(ordernum)d for %(type)s." % message)
     channel.basic_ack(delivery_tag=method.delivery_tag)
 
 
@@ -35,7 +38,7 @@ if __name__ == "__main__":
     channel = conn_broker.channel()
     
     #/(ctc.8) Start processing orders
-    print "Ready for orders!"
+    print("Ready for orders!")
     channel.basic_consume( msg_rcvd,
                            queue="warehouse_carpinteria",
                            no_ack=False,

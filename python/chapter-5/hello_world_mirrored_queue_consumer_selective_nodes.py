@@ -44,7 +44,7 @@ def msg_consumer(channel, method, header, body): #/(hwcmq.7) Make function to pr
         channel.basic_cancel(consumer_tag="hello-consumer") #/(hwcmq.9) Stop consuming more messages and quit
         channel.stop_consuming()
     else:
-        print body
+        print(body)
     
     return
 
